@@ -23,8 +23,8 @@ function [alpha, beta, gamma] = calcArmAngles(dest, lenA, lenB, lenC)
     eqnX2 = norm([X1,X2]) == (lenC/2);
     [solvX1, solvX2] = solve([eqnX1, eqnX2], [X1, X2]);
     
-    eqn1 = B1 + A1 == dest(1) + solvX1;
-    eqn2 = B2 + A2 == dest(2) + solvX2;
+    eqn1 = B1 + A1 == dest(1) + solvX1(1);
+    eqn2 = B2 + A2 == dest(2) + solvX2(1);
     eqn3 = sqrt(A1^2 + A2^2) == lenA;
     eqn4 = sqrt(B1^2 + B2^2) == lenB;
     
