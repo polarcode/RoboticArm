@@ -26,7 +26,7 @@ function robot_graphics = initView(robo, face)
 
     xlabel('X'), ylabel('Y'), zlabel('Z');
     title('Awesome Robot');
-    axis([-600, 600, -1200, 100, 0, 1200]);
+    axis([-1200, 1200, -1200, 1200, 0, 1200]);
     daspect([1 1 1]) % Setting the aspect ratio
     drawnow
 
