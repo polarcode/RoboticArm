@@ -1,4 +1,4 @@
-function [F,V,C] =  loadCAD(filename)
+function [F,V] =  loadCAD(filename)
     % CAD2MATDEMO, a demonstration of importing 3D CAD data into Matlab.
     % To get CAD data into Matlab, the process is:
     %
@@ -37,7 +37,7 @@ function [fout, vout] = rndread(filename)
     % Reads CAD STL ASCII files, which most CAD programs can export.
     % Used to create Matlab patches of CAD 3D data.
     % Returns a vertex list and face list, for Matlab patch command.
-    fid=fopen(filename, 'r'); %Open the file, assumes STL ASCII format.
+    fid = fopen(filename, 'r'); %Open the file, assumes STL ASCII format.
     if fid == -1 
         error('File could not be opened, check name or path.')
     end
@@ -48,9 +48,8 @@ function [fout, vout] = rndread(filename)
     % next color line.
     CAD_object_name = sscanf(fgetl(fid), '%*s %s');  %CAD object name, if needed. (Some STLs have it, some don't)
 
-    vnum=0;       % Vertex number counter.
-    report_num=0; % Report the status as we go.
-    VColor = 1;
+    vnum = 0;       % Vertex number counter.
+    report_num = 0; % Report the status as we go.
 
     while feof(fid) == 0                    % test for end of file, if not then do stuff
         tline = fgetl(fid);                 % reads a line of data from file.
