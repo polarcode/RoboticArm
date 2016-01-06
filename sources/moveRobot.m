@@ -11,7 +11,7 @@ function [robot] = moveRobot(robot, dest_pos)
     robot = schwenkSchulter(robot, angles(1));
     robot = schwenkEllbogen(robot, angles(2));
     robot = turnHandHorizontal(robot, angles(3));
-    robot.angles = dest_angles;
+    robot.pos_angles = dest_angles
 end
 
 function [angles] = calcArmAngles(dest, lenA, lenB, lenC)
