@@ -1,10 +1,13 @@
 clear
 clf
-[F_staender,V_staender,C_staender] = loadCAD('cad/cad_staender.stl');
-[F_oberarm,V_oberarm,C_oberarm] = loadCAD('cad/cad_oberarm.stl');
-[F_unterarm,V_unterarm,C_unterarm] = loadCAD('cad/cad_unterarm.stl');
-[F_hand, V_hand,C_hand] = loadCAD('cad/cad_Hand.stl');
-[F_daumen,V_daumen,C_daumen] = loadCAD('cad/cad_Daumen.stl');
+
+% --- create arm ---
+[F_staender,V_staender] = loadCAD('cad/cad_base.stl');
+[F_oberarm,V_oberarm] = loadCAD('cad/cad_oberarm.stl');
+[F_unterarm,V_unterarm] = loadCAD('cad/cad_unterarm.stl');
+[F_hand, V_hand] = loadCAD('cad/cad_Hand.stl');
+[F_daumen,V_daumen] = loadCAD('cad/cad_Daumen.stl');
+
 V_staender = rz(-90)*V_staender;
 V_oberarm = rz(-90)*V_oberarm;
 V_unterarm = rz(-90)*V_unterarm;
@@ -32,7 +35,7 @@ robo = struct('V_Staender', V_staender,...
               'EllbogenK', ellbogenK,...
               'HandK', handK,...
               'FingerK', fingerK);
-Ps = initView(robo)
+robot_graphics = initView(robo)
 
 
 
@@ -40,7 +43,7 @@ for n=0:10:300
   robo = reposSchulter(robo, -10); 
   robo = schwenkSchulter(robo, 1);  
   robo = schwenkEllbogen(robo,-1);
-  updateStructView(robo, Ps)
+  updateView(robo, robot_graphics)
   % usleep(50000)
 end
 
@@ -53,37 +56,37 @@ end
 
 for n=0:10:40
   robo = turnHandVertical(robo, 10);    % um eigene achse drehen
-  updateStructView(robo, Ps)
-  usleep(250000)
+  updateView(robo, robot_graphics)
+  %usleep(250000)
 end
 for n=0:10:90
   robo = turnHandHorizontal(robo, -10);    % nach oben
-  updateStructView(robo, Ps)
-  usleep(250000)
+  updateView(robo, robot_graphics)
+  %usleep(250000)
 end
 for n=0:10:90
   robo = turnHandAxial(robo, 10);    % nach oben
-  updateStructView(robo, Ps)
-  usleep(250000)
+  updateView(robo, robot_graphics)
+  %usleep(250000)
 end
 
 for n=0:10:30
   robo = moveSqueezer(robo, 10);    % nach oben
-  updateStructView(robo, Ps)
-  usleep(250000)
+  updateView(robo, robot_graphics)
+  %usleep(250000)
 end
 
 
 
 WorldKoordinates = [0 0 0 1; 1 0 0 1;0 1 0 1; 0 0 1 1]';
 robo = turnHandFromRobotoK1(robo, WorldKoordinates);
-updateStructView(robo, Ps)
+updateView(robo, robot_graphics)
 
 
 for n=0:10:90
   robo = Handbewegung(robo, 10,0,0);    % wieder nach oben (bzw auf der anderen seite wieder runter)
-  updateStructView(robo, Ps)
-  usleep(250000)
+  updateView(robo, robot_graphics)
+  %usleep(250000)
 end
   
 
