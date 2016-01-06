@@ -47,14 +47,10 @@ robot = struct('V_Staender', V_staender,...
               'lowerArm_len', 500,...
               'hand_len', 150);
 
-robot_graphics = initView(robot, face);
-
+robot.graphics = initView(robot, face);
 
 robot = moveRobot(robot, [-500, 200, 100]);
-updateView(robot, robot_graphics)
-pause(10)
+pause(1)
 robot = moveRobot(robot, [500, 500, 500]);
-updateView(robot, robot_graphics)
-pause(10)
+pause(1)
 robot = moveRobot(robot, [1000, 0, 300]);
-updateView(robot, robot_graphics)
