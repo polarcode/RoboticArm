@@ -11,7 +11,7 @@ view(3)
 
 
 p_staender = patch('Faces', F_staender, 'Vertices' ,Vd_staender);
-set(p_staender, 'facec', 'none');              % Set the face color (force it)
+set(p_staender, 'facec', 'red');              % Set the face color (force it)
 daspect([1 1 1])                    % Setting the aspect ratio
 
 p_oberarm = patch('Faces', F_oberarm, 'Vertices' ,Vd_oberarm);

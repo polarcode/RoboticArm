@@ -50,8 +50,8 @@ module Robo()
     Garbage1();
 }
 $fa=40;
-Garbage1();
-//Robo();
+//Garbage1();
+Robo();
 //Staender();
 //Oberarm();
 //Unterarm();
