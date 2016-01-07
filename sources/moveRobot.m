@@ -50,9 +50,9 @@ function [angles] = calcArmAngles(dest, lenA, lenB, lenC)
     eqn4 = sqrt(B1^2 + B2^2) == lenB;
     
     [solvA1, solvA2, solvB1, solvB2] = solve([eqn1, eqn2, eqn3, eqn4], [A1, A2, B1, B2]);
-    alpha = atan(solvA2./solvA1);
-    beta = atan(solvB2./solvB1) - alpha;
-    gamma = atan(solvX2./solvX1) - beta;
+    alpha = atan2(solvA2,solvA1);
+    beta = atan2(solvB2,solvB1) - alpha;
+    gamma = atan2(solvX2,solvX1) - beta;
     
     % only return first solution
     %alpha = double(alpha(1)*(180/pi));

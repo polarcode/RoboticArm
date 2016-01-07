@@ -7,6 +7,7 @@ function robot_graphics = initView(robo, face)
     Vd_daumen = robo.V_Daumen(1:3,:)';
 
     view(3)
+    grid on
 
     % --- drawing the robot ---
     p_staender = patch('Faces', face.base, 'Vertices' ,Vd_staender);
