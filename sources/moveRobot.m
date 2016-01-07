@@ -8,14 +8,34 @@ function [robot] = moveRobot(robot, dest_pos)
     angles = dest_angles - robot.pos_angles;
     robot.pos_angles = dest_angles;
     
+    if angles(1) >= 0 & abs(angles(2)) > 90
+        angles(2) = 360 + angles(2);
+    elseif angles(1) < 0 & abs(angles(2)) > 90
+        angles(2) = angles(2) - 360;
+    end
+    
     steps = 50;
     for i = 1:steps
         robot = reposSchulter(robot, (diff_height /steps));
         robot = schwenkSchulter(robot, (angles(1) /steps));
         robot = schwenkEllbogen(robot, (angles(2) /steps));
-        robot = turnHandHorizontal(robot, (angles(3) /steps));
         updateView(robot);
-        pause(0.1)
+        pause(0.01)
+    end
+    
+    robot = turnHandFromRobotoK1(robot, robot.GarbageK);
+    updateView(robot);
+    
+    for i = 1:steps
+        robot = turnHandHorizontal(robot, (90 / steps));
+        updateView(robot);
+        pause(0.001)
+    end
+    
+    for i = 1:steps
+        robot = turnHandVertical(robot, (-90 / steps));
+        updateView(robot);
+        pause(0.001)
     end
 end
 
@@ -36,14 +56,7 @@ function [angles] = calcArmAngles(dest, lenA, lenB, lenC)
         return
     end
 
-    syms A1 A2 B1 B2 X1 X2
-    
-    eqnX1 = dot(dest2D, [X1,X2]) == norm(dest2D) * (lenC/2) * cosd((norm(dest2D) / R) * 180);
-    eqnX2 = norm([X1,X2]) == (lenC/2);
-    [solvX1, solvX2] = solve([eqnX1, eqnX2], [X1, X2]);
-    pos_offset = double([solvX1(1), solvX2(1)]);
-    
-    dest2D = dest2D + pos_offset;
+    syms A1 A2 B1 B2
     eqn1 = B1 + A1 == dest2D(1);
     eqn2 = B2 + A2 == dest2D(2);
     eqn3 = sqrt(A1^2 + A2^2) == lenA;
@@ -52,12 +65,6 @@ function [angles] = calcArmAngles(dest, lenA, lenB, lenC)
     [solvA1, solvA2, solvB1, solvB2] = solve([eqn1, eqn2, eqn3, eqn4], [A1, A2, B1, B2]);
     alpha = atan2(solvA2,solvA1);
     beta = atan2(solvB2,solvB1) - alpha;
-    gamma = atan2(solvX2,solvX1) - beta;
     
-    % only return first solution
-    %alpha = double(alpha(1)*(180/pi));
-    %beta = double(beta(1)*(180/pi));
-    %gamma = double(gamma(1)*(180/pi));
-    
-    angles = double([alpha(1), beta(1), gamma(1)]).*(180/pi);
+    angles = double([alpha(1), beta(1), 0]).*(180/pi);
 end
