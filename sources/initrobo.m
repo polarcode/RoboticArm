@@ -62,4 +62,7 @@ for i = 1:steps
 end
 
 robot = turnHandFromRobotoK1(robot, robot.EllbogenK);
+
+
+
 updateView(robot);

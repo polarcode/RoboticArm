@@ -15,8 +15,10 @@ function [robot] = moveRobot(robot, dest_pos)
         robot = schwenkEllbogen(robot, (angles(2) /steps));
         robot = turnHandHorizontal(robot, (angles(3) /steps));
         updateView(robot);
-        pause(0.1)
+        pause(0.01)
     end
+    robot = turnHandFromRobotoK1(robot, robot.EllbogenK);
+    updateView(robot);
 end
 
 function [angles] = calcArmAngles(dest, lenA, lenB, lenC)
