@@ -14,7 +14,7 @@ function [robo] = turnHandVertical (robo, angle)
       %R_ = ry(-handAngleY)*rz(-handAngleZ);  
       %R = rz(handAngleZ)*ry(handAngleY); 
     
-      D = rx(-angle);     
+      D = ry(-angle);     
       T1 = tl(handK(1,1), handK(2,1), handK(3,1));
       T2 = tl(-handK(1,1), -handK(2,1), -handK(3,1)); 
       

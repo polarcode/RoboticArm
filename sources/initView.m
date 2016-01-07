@@ -11,7 +11,7 @@ function robot_graphics = initView(robo, face)
 
     % --- drawing the robot ---
     p_staender = patch('Faces', face.base, 'Vertices' ,Vd_staender);
-    set(p_staender, 'facec', 'none');
+    set(p_staender, 'facec', 'red');
 
     p_oberarm = patch('Faces', face.upperArm, 'Vertices' ,Vd_oberarm);
     set(p_oberarm, 'facec', 'blue');
