@@ -25,7 +25,7 @@ function [robo] = turnHandAxial (robo, angle)
       %N=R_*handK;
       robo.V_Hand = M*hand;
       robo.V_Daumen = M*daumen;
-      
+
       robo.HandK = M*handK;
       robo.FingerK = M*fingerK;
 end

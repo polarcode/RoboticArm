@@ -5,6 +5,7 @@ function robot_graphics = initView(robo, face)
     Vd_unterarm = robo.V_Unterarm(1:3,:)';
     Vd_hand = robo.V_Hand(1:3,:)';
     Vd_daumen = robo.V_Daumen(1:3,:)';
+    Vd_garbage = robo.V_Garbage(1:3,:)';
 
     view(3)
     grid on
@@ -24,6 +25,9 @@ function robot_graphics = initView(robo, face)
 
     p_daumen = patch('Faces', face.thumb, 'Vertices' ,Vd_daumen);
     set(p_daumen, 'facec', 'blue');
+    
+    p_garbage = patch('Faces', face.garbage, 'Vertices' ,Vd_garbage);
+    set(p_garbage, 'facec', 'cyan');
 
     xlabel('X'), ylabel('Y'), zlabel('Z');
     title('Awesome Robot');
@@ -35,5 +39,6 @@ function robot_graphics = initView(robo, face)
                             'p_oberarm', p_oberarm,...
                             'p_unterarm', p_unterarm,...
                             'p_hand', p_hand,...
-                            'p_daumen', p_daumen)
+                            'p_daumen', p_daumen,...
+                            'p_garbage', p_garbage)
 end
