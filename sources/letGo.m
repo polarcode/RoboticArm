@@ -13,19 +13,13 @@ function [robo] = letGo(robo)
     robo.garbageGrabed = false;
 
     for i = 1:steps
-        robo = reposSchulter(robo, (100 /steps));
-        updateView(robo);
-        pause(0.01)
-    end
-    
-    for i = 1:steps
         robo = moveSqueezer(robo, (-40 / steps));
         updateView(robo);
         pause(0.001)
     end
-
+    
     for i = 1:steps
-        robo = reposSchulter(robo, ((robo.hand_len/2) /steps));
+        robo = reposSchulter(robo, (150 /steps));
         updateView(robo);
         pause(0.01)
     end
