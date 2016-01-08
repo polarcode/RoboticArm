@@ -211,7 +211,7 @@ These rules lead to the fact that the shortes way is not always the correct way.
 \textit{Red shows the bad rotation angle and green the correct rotation angle}
 \end{center}
 
-Following code in \em{MatLab} does the trick:
+Following code in {\em MatLab} does the trick:
 
 \begin{framed}\begin{verbatim}
 dest_angles = calcArmAngles(dest_pos, robo.upperArm_len, robo.foreArm_len, robo.hand_len);
@@ -234,5 +234,5 @@ elseif robo.pos_angles(2) > 0
 end
 \end{verbatim}\end{framed}
 
-At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder \em{'rem'} from a division with 360. We then basically apply the rule above: if the fore arm is to the left, turn right and if the fore arm is to the right, turn left. But of course, we also allow small rotations to the left if the fore arm is to the left and the other way around. But all under the restriction that the fore arm never turns more than 180 degrees plus his current rotation or 180 degrees minus his current rotation, depending on his position. This prevents the hand from passing through the pillar.
+At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder {\em 'rem'} from a division with 360. We then basically apply the rule above: if the fore arm is to the left, turn right and if the fore arm is to the right, turn left. But of course, we also allow small rotations to the left if the fore arm is to the left and the other way around. But all under the restriction that the fore arm never turns more than 180 degrees plus his current rotation or 180 degrees minus his current rotation, depending on his position. This prevents the hand from passing through the pillar.
 
