@@ -9,6 +9,7 @@ function robo = schwenkEllbogen(robo, angle)
     robo.V_Hand = M*robo.V_Hand;
     robo.V_Daumen = M*robo.V_Daumen;
     
+    robo.EllbogenK = M*ellbogenK;
     robo.HandK = M*handK;
     robo.FingerK = M*fingerK;
     

@@ -15,6 +15,6 @@ function [robo] = letGo(robo)
         pause(0.01)
     end
     
-    robo = turnHandFromRobotoK1(robo, robo.HandK);
+    robo = turnHandFromRobotoK1(robo, robo.EllbogenK);
     updateView(robo);
 end

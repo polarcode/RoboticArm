@@ -1,6 +1,6 @@
 function [robo] = moveRobo(robo, dest_pos)
     % adjust height
-    diff_height = dest_pos(3) - robo.height + (robo.hand_len);
+    diff_height = dest_pos(3) - robo.height + robo.hand_len;
     robo.height = robo.height + diff_height;
 
     % adjust orientation
@@ -16,6 +16,7 @@ function [robo] = moveRobo(robo, dest_pos)
     end
     robo.pos_angles = robo.pos_angles + angles;
     
+    % move
     steps = 50;
     for i = 1:steps
         robo = reposSchulter(robo, (diff_height /steps));
