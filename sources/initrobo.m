@@ -45,7 +45,7 @@ robo = struct('V_Staender', V_staender,...
                'height', 640,...
                'upperArm_len', 500,...
                'lowerArm_len', 500,...
-               'hand_len', 150);
+               'hand_len', 160);
 
 robo.graphics = initView(robo, face);
 
@@ -54,6 +54,9 @@ robo = moveRobo(robo, [600, 315, 85]);
 robo = grab(robo);
 pause(1)
 robo = moveRobo(robo, [-500, -500, 600]);
+robo = moveRobo(robo, [-500, 500, 700]);
+robo = moveRobo(robo, [500, -500, 500]);
+robo = moveRobo(robo, [500, -500, 85]);
 robo = letGo(robo);
 pause(1)
 robo = moveRobo(robo, [1000, 0, 300]);

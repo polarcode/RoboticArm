@@ -1,4 +1,5 @@
 function [robo] = turnHandAxial (robo, angle)
+    handK = robo.HandK;
     WorldKoordinates = [0 0 0 1; 1 0 0 1;0 1 0 1; 0 0 1 1]';
     rotm = getHomogenRotMatrix(WorldKoordinates, handK);
     rotm_ = inv(rotm);
