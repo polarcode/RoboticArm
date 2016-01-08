@@ -32,5 +32,4 @@ function [r_z, r_y] = getAngles(KoordinatSystem)
       r_y = -90;
     end
   end
-  
 end 

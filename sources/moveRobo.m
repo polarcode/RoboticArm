@@ -1,18 +1,19 @@
 function [robo] = moveRobo(robo, dest_pos)
     % adjust height
-    diff_height = dest_pos(3) - robo.height;
-    robo.height = dest_pos(3);
+    diff_height = dest_pos(3) - robo.height + (robo.hand_len);
+    robo.height = robo.height + diff_height;
 
     % adjust orientation
     dest_angles = calcArmAngles(dest_pos, robo.upperArm_len, robo.lowerArm_len, robo.hand_len);
     angles = dest_angles - robo.pos_angles;
-    robo.pos_angles = dest_angles;
     
-    if angles(1) >= 0 & abs(angles(2)) > 90
+    % making sure that the arm does not pass through itself
+    if angles(2) < 0 & abs(angles(2)) > (180 - robo.pos_angles(2))
         angles(2) = 360 + angles(2);
-    elseif angles(1) < 0 & abs(angles(2)) > 90
+    elseif angles(2) > 0 & abs(angles(2)) > (180 + robo.pos_angles(2))
         angles(2) = angles(2) - 360;
     end
+    robo.pos_angles = dest_angles;
     
     steps = 50;
     for i = 1:steps

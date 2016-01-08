@@ -49,10 +49,11 @@ robo = struct('V_Staender', V_staender,...
 
 robo.graphics = initView(robo, face);
 
-robo = moveRobo(robo, [550, 330, 100]);
+
+robo = moveRobo(robo, [600, 315, 85]);
 robo = grab(robo);
 pause(1)
-robo = moveRobo(robo, [-500, -500, 300]);
-robo.garbageGrabed = false;
+robo = moveRobo(robo, [-500, -500, 600]);
+robo = letGo(robo);
 pause(1)
 robo = moveRobo(robo, [1000, 0, 300]);

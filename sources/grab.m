@@ -1,7 +1,7 @@
 function [robo] = grab(robo)
     steps = 50;
     robo = turnHandFromRobotoK1(robo, robo.GarbageK);
-    updateView(robo);    
+    updateView(robo);
     
     for i = 1:steps
         robo = turnHandHorizontal(robo, (90 / steps));
@@ -11,6 +11,18 @@ function [robo] = grab(robo)
     
     for i = 1:steps
         robo = turnHandVertical(robo, (-90 / steps));
+        updateView(robo);
+        pause(0.001)
+    end
+
+    for i = 1:steps
+        robo = reposSchulter(robo, (-(robo.hand_len/2) /steps));
+        updateView(robo);
+        pause(0.01)
+    end
+    
+    for i = 1:steps
+        robo = moveSqueezer(robo, (40 / steps));
         updateView(robo);
         pause(0.001)
     end
