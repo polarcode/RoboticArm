@@ -160,4 +160,71 @@ Gimbal-Lock is a problem which occurs when rotating an object with euler angles.
 \textit{(Pictures out of the following you tube video: https://www.youtube.com/watch?v=zc8b2Jo7mno)}
 
 \subsection{Calculation of rotation angles}
-In order to get the arm to move to a certain position we have to calculate the required angles of rotation of each arm segemnt
+In order to get the arm to move to a certain position, we have to calculate the required angles of rotation of each segment of the arm. We do this with a vector based approach which leads to following system of equations:
+
+\begin{align*}
+\vec{a}  + \vec{b} = \vec{x}\\
+|\vec{a}| = A\\
+|\vec{b}| = B
+\end{align*}
+
+$\vec{a}$ being the vector representing the upper arm, $\vec{b}$ representing the fore arm, and $\vec{x}$ being the position vector of the destination. $A$ and $B$ are the lengths of each segment. Using the components of the vectors we get following equations:
+
+\begin{align*}
+a_x + b_x = x_x\\
+a_y + b_y = x_y\\
+\sqrt{a_x^2 + a_y^2} = A\\
+\sqrt{b_x^2 + b_y^2} = B
+\end{align*}
+
+Solving the system for $a_x$, $a_y$, $b_x$, and $b_y$ gives us two sets of components for $\vec{a}$ and $\vec{b}$. The second solution is the same as the first but mirrored along the position vector of the destination. We can therefor just pick a solution.
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{imgs/AngleCalc/robot_altSolution.jpg}\\
+\textit{Showing the the solutions for moving the robot to a given position}
+\end{center}
+
+\pagebreak
+
+Calculating the angles of the vectors and considering the rotation of the first segment for the second, will give us rotation angle of each segment. Subtracting the current angles from the result will give us the relative rotation angle to get from position to another.
+
+\begin{align*}
+\alpha = \arctan(\frac{a_y}{a_x})\\
+\beta = \arctan(\frac{b_y}{b_x}) - alpha
+\end{align*}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{imgs/AngleCalc/robot_rotAngleCalc.jpg}\\
+\textit{Illustration of the problem}
+\end{center}
+
+
+\subsection{Preventing the arm from passing through itself}
+A big challange of calculating the rotation angle is to prevent the arm or rather the hand from passing through the pillar. The problem mostly occures when doing more than one rotation. Solving the problem proved to be quite difficult although the solution seems simple:\\
+
+{\em The fore arm must never rotate more than 360 degrees. If the fore arm is left of the upper arm, or has a positive angle, the fore arm should turn right using a negaive rotation angle and if the fore arm is right of the upper arm, or has a negative angle, the fore arm should turn left using a positive rotation angle.}
+
+These rules lead to the fact that the shortes way is not always the correct way.
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{imgs/AngleCalc/robot_passThroughProblem.jpg}\\
+\textit{Red shows the bad rotation angle and green the correct rotation angle}
+\end{center}
+
+Following code in \em{MatLab} does the trick:
+
+\begin{verbatim}
+dest_angles = calcArmAngles(dest_pos, robo.upperArm_len, robo.foreArm_len, robo.hand_len);
+angles = dest_angles - robo.pos_angles;
+    
+% making sure that the arm does not pass through itself
+angles = rem(angles, 360);
+if robo.pos_angles(2) <= 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
+	angles(2) = 360 + angles(2);
+elseif robo.pos_angles(2) >= 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
+	angles(2) = angles(2) - 360;
+end
+\end{verbatim}
+
+At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder \em{'rem'} from a division with 360.
+

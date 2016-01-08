@@ -52,7 +52,6 @@ robo.graphics = initView(robo, face);
 
 robo = moveRobo(robo, [600, 315, 85]);
 robo = grab(robo);
-pause(1)
 robo = moveRobo(robo, [-500, -500, 600]);
 robo = moveRobo(robo, [-500, 500, 700]);
 robo = moveRobo(robo, [500, -500, 500]);
@@ -67,7 +66,6 @@ end
 
 robo = moveRobo(robo, [500, -500, 30]);
 robo = letGo(robo);
-pause(1)
 robo = moveRobo(robo, [1000, 0, 300]);
 robo = turnHandFromRoboToK1(robo, robo.elbowK);
 updateView(robo);

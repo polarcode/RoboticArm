@@ -9,10 +9,18 @@ function [robo] = moveRobo(robo, dest_pos)
     
     % making sure that the arm does not pass through itself
     angles = rem(angles, 360);
-    if robo.pos_angles(2) <= 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
-        angles(2) = 360 + angles(2);
-    elseif robo.pos_angles(2) >= 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
-        angles(2) = angles(2) - 360;
+    if robo.pos_angles(2) <= 0
+        if angles(2) > 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
+            angles(2) = angles(2) - 360;
+        elseif angles(2) < 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
+            angles(2) = angles(2) + 360;
+        end
+    elseif robo.pos_angles(2) > 0
+        if angles(2) > 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
+            angles(2) = 360 - angles(2);
+        elseif angles(2) < 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
+            angles(2) = angles(2) + 360;
+        end
     end
     robo.pos_angles = robo.pos_angles + angles;
     
