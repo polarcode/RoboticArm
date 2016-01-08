@@ -1,20 +1,15 @@
-function robo = schwenkSchulter(robo, angle)
-    schulternK = robo.SchulterK;
-    ellbogenK = robo.EllbogenK;
-    handK = robo.HandK;
-    fingerK = robo.FingerK;
+function robot = schwenkSchulter(robot, angle)
+    robot.V_Oberarm = rz(angle)*robot.V_Oberarm;
+    robot.V_Unterarm = rz(angle)*robot.V_Unterarm;
+    robot.V_Hand = rz(angle)*robot.V_Hand;
+    robot.V_Daumen = rz(angle)*robot.V_Daumen;
     
-    oberarm = robo.V_Oberarm;
-    unterarm = robo.V_Unterarm;
-    hand = robo.V_Hand;
-    daumen = robo.V_Daumen;
-        
-    robo.V_Oberarm = rz(angle)*oberarm;
-    robo.V_Unterarm = rz(angle)*unterarm;
-    robo.V_Hand = rz(angle)*hand;
-    robo.V_Daumen = rz(angle)*daumen;
+    robot.EllbogenK = rz(angle)*robot.EllbogenK;
+    robot.HandK = rz(angle)*robot.HandK;
+    robot.FingerK = rz(angle)*robot.FingerK;
     
-    robo.EllbogenK = rz(angle)*ellbogenK;
-    robo.HandK = rz(angle)*handK;
-    robo.FingerK = rz(angle)*fingerK;
+    if robot.garbageGrabed == true
+        robot.V_Garbage = rz(angle)*robot.V_Garbage;
+        robot.GarbageK = rz(angle)*robot.GarbageK;
+    end
 end

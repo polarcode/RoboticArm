@@ -1,4 +1,4 @@
-function [robot] = moveRobot(robot, dest_pos)
+function [robot] = moveRobo(robot, dest_pos)
     % adjust height
     diff_height = dest_pos(3) - robot.height;
     robot.height = dest_pos(3);
@@ -21,21 +21,6 @@ function [robot] = moveRobot(robot, dest_pos)
         robot = schwenkEllbogen(robot, (angles(2) /steps));
         updateView(robot);
         pause(0.01)
-    end
-    
-    robot = turnHandFromRobotoK1(robot, robot.GarbageK);
-    updateView(robot);
-    
-    for i = 1:steps
-        robot = turnHandHorizontal(robot, (90 / steps));
-        updateView(robot);
-        pause(0.001)
-    end
-    
-    for i = 1:steps
-        robot = turnHandVertical(robot, (-90 / steps));
-        updateView(robot);
-        pause(0.001)
     end
 end
 
