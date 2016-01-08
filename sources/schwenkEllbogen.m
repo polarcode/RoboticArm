@@ -1,20 +1,20 @@
-function robot = schwenkEllbogen(robot, angle)
-    ellbogenK = robot.EllbogenK;
-    handK = robot.HandK;
-    fingerK = robot.FingerK;
+function robo = schwenkEllbogen(robo, angle)
+    ellbogenK = robo.EllbogenK;
+    handK = robo.HandK;
+    fingerK = robo.FingerK;
     
     M = tl(ellbogenK(1,1), ellbogenK(2,1),ellbogenK(3,1))*rz(angle)*tl(-ellbogenK(1,1),-ellbogenK(2,1),-ellbogenK(3,1));
     
-    robot.V_Unterarm = M*robot.V_Unterarm;
-    robot.V_Hand = M*robot.V_Hand;
-    robot.V_Daumen = M*robot.V_Daumen;
+    robo.V_Unterarm = M*robo.V_Unterarm;
+    robo.V_Hand = M*robo.V_Hand;
+    robo.V_Daumen = M*robo.V_Daumen;
     
-    robot.HandK = M*handK;
-    robot.FingerK = M*fingerK;
+    robo.HandK = M*handK;
+    robo.FingerK = M*fingerK;
     
 
-    if robot.garbageGrabed == true
-        robot.V_Garbage = M*robot.V_Garbage;
-        robot.GarbageK = M*robot.GarbageK;
+    if robo.garbageGrabed == true
+        robo.V_Garbage = M*robo.V_Garbage;
+        robo.GarbageK = M*robo.GarbageK;
     end
 end
