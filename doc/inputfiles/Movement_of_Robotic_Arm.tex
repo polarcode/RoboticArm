@@ -213,18 +213,26 @@ These rules lead to the fact that the shortes way is not always the correct way.
 
 Following code in \em{MatLab} does the trick:
 
-\begin{verbatim}
+\begin{framed}\begin{verbatim}
 dest_angles = calcArmAngles(dest_pos, robo.upperArm_len, robo.foreArm_len, robo.hand_len);
 angles = dest_angles - robo.pos_angles;
     
 % making sure that the arm does not pass through itself
 angles = rem(angles, 360);
-if robo.pos_angles(2) <= 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
-	angles(2) = 360 + angles(2);
-elseif robo.pos_angles(2) >= 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
-	angles(2) = angles(2) - 360;
+if robo.pos_angles(2) <= 0
+        if angles(2) > 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
+                angles(2) = angles(2) - 360;
+        elseif angles(2) < 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
+                angles(2) = angles(2) + 360;
+        end
+elseif robo.pos_angles(2) > 0
+        if angles(2) > 0 & abs(angles(2)) > abs(180 - robo.pos_angles(2))
+                angles(2) = 360 - angles(2);
+        elseif angles(2) < 0 & abs(angles(2)) > abs(180 + robo.pos_angles(2))
+                angles(2) = angles(2) + 360;
+        end
 end
-\end{verbatim}
+\end{verbatim}\end{framed}
 
-At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder \em{'rem'} from a division with 360.
+At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder \em{'rem'} from a division with 360. We then basically apply the rule above: if the fore arm is to the left, turn right and if the fore arm is to the right, turn left. But of course, we also allow small rotations to the left if the fore arm is to the left and the other way around. But all under the restriction that the fore arm never turns more than 180 degrees plus his current rotation or 180 degrees minus his current rotation, depending on his position. This prevents the hand from passing through the pillar.
 
