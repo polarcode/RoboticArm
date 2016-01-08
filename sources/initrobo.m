@@ -56,7 +56,11 @@ pause(1)
 robo = moveRobo(robo, [-500, -500, 600]);
 robo = moveRobo(robo, [-500, 500, 700]);
 robo = moveRobo(robo, [500, -500, 500]);
-robo = moveRobo(robo, [500, -500, 40]);
+robo = turnHandFromRobotoK1(robo, robo.EllbogenK);
+updateView(robo);
+robo = moveRobo(robo, [500, -500, 30]);
 robo = letGo(robo);
 pause(1)
 robo = moveRobo(robo, [1000, 0, 300]);
+robo = turnHandFromRobotoK1(robo, robo.EllbogenK);
+updateView(robo);
