@@ -1,5 +1,5 @@
 function [robo] = grab(robo)
-    steps = 50;
+    steps = 20;
     robo = turnHandFromRobotoK1(robo, robo.GarbageK);
     updateView(robo);
     
