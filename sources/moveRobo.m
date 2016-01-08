@@ -4,7 +4,7 @@ function [robo] = moveRobo(robo, dest_pos)
     robo.height = robo.height + diff_height;
 
     % adjust orientation
-    dest_angles = calcArmAngles(dest_pos, robo.upperArm_len, robo.lowerArm_len, robo.hand_len);
+    dest_angles = calcArmAngles(dest_pos, robo.upperArm_len, robo.foreArm_len, robo.hand_len);
     angles = dest_angles - robo.pos_angles;
     
     % making sure that the arm does not pass through itself
@@ -19,9 +19,9 @@ function [robo] = moveRobo(robo, dest_pos)
     % move
     steps = 50;
     for i = 1:steps
-        robo = reposSchulter(robo, (diff_height /steps));
-        robo = schwenkSchulter(robo, (angles(1) /steps));
-        robo = schwenkEllbogen(robo, (angles(2) /steps));
+        robo = reposShoulder(robo, (diff_height /steps));
+        robo = rotateShoulder(robo, (angles(1) /steps));
+        robo = rotateElbow(robo, (angles(2) /steps));
         updateView(robo);
         pause(0.01)
     end

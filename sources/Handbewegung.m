@@ -1,16 +1,16 @@
 function robo = Handbewegung(robo, angleX, angleY, angleZ)
-      ellbogenK = robo.EllbogenK;
-      handK = robo.HandK;
-      fingerK = robo.FingerK;
+      elbowK = robo.elbowK;
+      handK = robo.handK;
+      fingerK = robo.fingerK;
       
-      oberarm = robo.V_Oberarm;
-      unterarm = robo.V_Unterarm;
-      hand = robo.V_Hand;
-      daumen = robo.V_Daumen;
+      upperArm = robo.V_upperArm;
+      foreArm = robo.V_foreArm;
+      hand = robo.V_hand;
+      thumb = robo.V_thumb;
 
       %[handAngleZ, handAngleY] = getAngles(handK);
-      WorldKoordinates = [0 0 0 1; 1 0 0 1;0 1 0 1; 0 0 1 1]';
-      rotm = getHomogenRotMatrix(WorldKoordinates, handK);
+      WorldCoordinates = [0 0 0 1; 1 0 0 1;0 1 0 1; 0 0 1 1]';
+      rotm = getHomogenRotMatrix(WorldCoordinates, handK);
       rotm_ = inv(rotm);
       %R_ = ry(-handAngleY)*rz(-handAngleZ);  
       %R = rz(handAngleZ)*ry(handAngleY); 
@@ -19,15 +19,15 @@ function robo = Handbewegung(robo, angleX, angleY, angleZ)
       T1 = tl(handK(1,1), handK(2,1), handK(3,1));
       T2 = tl(-handK(1,1), -handK(2,1), -handK(3,1)); 
       
-      M = T1*rotm*D*rotm_*T2;    % achtung: T1 und T2 sind vertauscht, weil in view ist die Y-Achse im negativen
+      M = T1*rotm*D*rotm_*T2;
       %M2 = R_*T2;
       %V=handK;
       %S=T2*handK;
       %N=R_*handK;
-      robo.V_Hand = M*hand;
-      robo.V_Daumen = M*daumen;
+      robo.V_hand = M*hand;
+      robo.V_thumb = M*thumb;
       
-      %robo.EllbogenK = M*ellbogenK;
-      robo.HandK = M*handK;
-      robo.FingerK = M*fingerK;
+      %robo.elbowK = M*elbowK;
+      robo.handK = M*handK;
+      robo.fingerK = M*fingerK;
 end

@@ -1,6 +1,6 @@
-function [robo] = turnHandFromRobotoK1 (robo, K1)
-    handK = robo.HandK;
-    fingerK = robo.FingerK;
+function [robo] = turnHandFromRoboToK1 (robo, K1)
+    handK = robo.handK;
+    fingerK = robo.fingerK;
 
     rotm = getHomogenRotMatrix(handK,K1);
 
@@ -13,14 +13,14 @@ function [robo] = turnHandFromRobotoK1 (robo, K1)
 
     M = T1*rotm*T2;
 
-    robo.V_Hand = M*robo.V_Hand;
-    robo.V_Daumen = M*robo.V_Daumen;
+    robo.V_hand = M*robo.V_hand;
+    robo.V_thumb = M*robo.V_thumb;
     
-    robo.HandK = M*handK;
-    robo.FingerK = M*fingerK;
+    robo.handK = M*handK;
+    robo.fingerK = M*fingerK;
     
     if robo.garbageGrabed == true
-        robo.V_Garbage = M*robo.V_Garbage;
-        robo.GarbageK = M*robo.GarbageK;
+        robo.V_garbage = M*robo.V_garbage;
+        robo.garbageK = M*robo.garbageK;
     end
 end

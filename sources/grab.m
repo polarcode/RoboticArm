@@ -1,6 +1,6 @@
 function [robo] = grab(robo)
     steps = 20;
-    robo = turnHandFromRobotoK1(robo, robo.GarbageK);
+    robo = turnHandFromRoboToK1(robo, robo.garbageK);
     updateView(robo);
     
     for i = 1:steps
@@ -16,7 +16,7 @@ function [robo] = grab(robo)
     end
 
     for i = 1:steps
-        robo = reposSchulter(robo, (-(robo.hand_len/2) /steps));
+        robo = reposShoulder(robo, (-(robo.hand_len/2) /steps));
         updateView(robo);
         pause(0.01)
     end

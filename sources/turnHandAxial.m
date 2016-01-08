@@ -1,7 +1,7 @@
 function [robo] = turnHandAxial (robo, angle)
-    handK = robo.HandK;
-    WorldKoordinates = [0 0 0 1; 1 0 0 1;0 1 0 1; 0 0 1 1]';
-    rotm = getHomogenRotMatrix(WorldKoordinates, handK);
+    handK = robo.handK;
+    WorldCoordinates = [0 0 0 1; 1 0 0 1;0 1 0 1; 0 0 1 1]';
+    rotm = getHomogenRotMatrix(WorldCoordinates, handK);
     rotm_ = inv(rotm);
 
     D = rx(angle);     
@@ -10,14 +10,14 @@ function [robo] = turnHandAxial (robo, angle)
 
     M = T1*rotm*D*rotm_*T2;
 
-    robo.V_Hand = M*robo.V_Hand;
-    robo.V_Daumen = M*robo.V_Daumen;
+    robo.V_hand = M*robo.V_hand;
+    robo.V_thumb = M*robo.V_thumb;
 
-    robo.HandK = M*robo.HandK;
-    robo.FingerK = M*robo.FingerK;
+    robo.handK = M*robo.handK;
+    robo.fingerK = M*robo.fingerK;
     
     if robo.garbageGrabed == true
-        robo.V_Garbage = M*robo.V_Garbage;
-        robo.GarbageK = M*robo.GarbageK;
+        robo.V_garbage = M*robo.V_garbage;
+        robo.garbageK = M*robo.garbageK;
     end
 end
