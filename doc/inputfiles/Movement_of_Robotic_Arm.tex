@@ -160,7 +160,7 @@ Gimbal-Lock is a problem which occurs when rotating an object with euler angles.
 \textit{(Pictures out of the following you tube video: https://www.youtube.com/watch?v=zc8b2Jo7mno)}
 
 \subsection{Calculation of rotation angles}
-In order to get the arm to move to a certain position, we have to calculate the required angles of rotation of each segment of the arm. We do this with a vector based approach which leads to following system of equations:
+In order to get the arm to move to a certain position, we have to calculate the required angles of rotation of each segment of the arm. We do this with a vector based approach which leads to following system of equations. Alternative approaches would have involved {\em the law of cosins} or {\em complex numbers.} We used vectors due to their simplicity. Following equations are the basis of our calculations:
 
 \begin{align*}
 \vec{a}  + \vec{b} = \vec{x}\\
@@ -186,7 +186,7 @@ Solving the system for $a_x$, $a_y$, $b_x$, and $b_y$ gives us two sets of compo
 
 \pagebreak
 
-Calculating the angles of the vectors and considering the rotation of the first segment for the second, will give us rotation angle of each segment. Subtracting the current angles from the result will give us the relative rotation angle to get from position to another.
+Calculating the angles of the vectors and considering the rotation of the first segment for the second one, give us the rotation angle of each segment. Subtracting the current angles from the result will give us the relative rotation angle to get from one position to another.
 
 \begin{align*}
 \alpha = \arctan(\frac{a_y}{a_x})\\
@@ -200,11 +200,11 @@ Calculating the angles of the vectors and considering the rotation of the first 
 
 
 \subsection{Preventing the arm from passing through itself}
-A big challange of calculating the rotation angle is to prevent the arm or rather the hand from passing through the pillar. The problem mostly occures when doing more than one rotation. Solving the problem proved to be quite difficult although the solution seems simple:\\
+A big challange of calculating the rotation angle is to prevent the arm or rather the hand from passing through the pillar. The problem mostly occures when doing more than one rotation. Solving the problem proved to be quite difficult, as we couldn't pedict which of the two solutions we end up with when picking the {\em first.} To eprevent the phenomenon, we can formulate following simple rules:\\
 
-{\em The fore arm must never rotate more than 360 degrees. If the fore arm is left of the upper arm, or has a positive angle, the fore arm should turn right using a negaive rotation angle and if the fore arm is right of the upper arm, or has a negative angle, the fore arm should turn left using a positive rotation angle.}
+{\em The fore arm must never rotate more than 360 degrees. If the fore arm is left of the upper arm, or has a positive angle, the fore arm should, in general, turn right using a negaive rotation angle and if the fore arm is right of the upper arm, or has a negative angle, the fore arm should, in general, turn left using a positive rotation angle.}
 
-These rules lead to the fact that the shortes way is not always the correct way.
+These rules lead to the fact that the shortes way is not always the correct way. Following graph shows why:
 
 \begin{center}
 \includegraphics[width=0.45\textwidth]{imgs/AngleCalc/robot_passThroughProblem.jpg}\\
@@ -234,5 +234,5 @@ elseif robo.pos_angles(2) > 0
 end
 \end{verbatim}\end{framed}
 
-At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder {\em 'rem'} from a division with 360. We then basically apply the rule above: if the fore arm is to the left, turn right and if the fore arm is to the right, turn left. But of course, we also allow small rotations to the left if the fore arm is to the left and the other way around. But all under the restriction that the fore arm never turns more than 180 degrees plus his current rotation or 180 degrees minus his current rotation, depending on his position. This prevents the hand from passing through the pillar.
+At first we calculate the relative rotation angles to get to the destination. We then make sure that we don't turn more than 360 degrees by calculating the remainder {\em 'rem'} from a division with 360. We then basically apply the rule above: if the fore arm is to the left, turn right and if the fore arm is to the right, turn left. But of course, we also allow small rotations to the left if the fore arm is to the left and the other way around. But all under the restriction that the fore arm never turns more than {\em 180 degrees plus his current rotation} or {\em 180 degrees minus his current rotation}, depending on his position and the destination. This prevents the hand from passing through the pillar.
 
