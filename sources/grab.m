@@ -1,6 +1,6 @@
 function [robo] = grab(robo)
     steps = 20;
-    robo = turnHandFromRoboToK1(robo, robo.garbageK);
+    robo = turnHandFromRoboToK1Motion(robo, robo.garbageK);
     updateView(robo);
     
     for i = 1:steps
