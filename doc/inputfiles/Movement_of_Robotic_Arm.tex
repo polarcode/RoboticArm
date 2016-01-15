@@ -154,6 +154,7 @@ These are 9 unknown variables and 9 linear equations which can be solved easily 
 
 \subsection{Calculating Euler Angles}
 If we want to scale the the movement of the robotic arm to animate it. we must know the angles to rotate. This angles are called euler angles. Euer angles are always three angles with which we can rotate an object to face any direction we want. The angles depend on the sequence you rotate them. We decide the sequence to be ZYZ.\\
+
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=\textwidth]{imgs/AngleCalc/eulerangles.png}
 \end{minipage}
@@ -176,6 +177,7 @@ Gimbal-Lock is a problem which occurs when rotating an object with euler angles.
 \includegraphics[width=0.45\textwidth]{imgs/GimbalLock/GimbalLock2.png}\\
 \textit{(Pictures out of the following you tube video: https://www.youtube.com/watch?v=zc8b2Jo7mno)}
 
+\pagebreak
 \subsection{Calculation of rotation angles}
 In order to get the arm to move to a certain position, we have to calculate the required angles of rotation of each segment of the arm. We do this with a vector based approach which leads to following system of equations. Alternative approaches would have involved {\em the law of cosins} or {\em complex numbers.} We used vectors due to their simplicity. Following equations are the basis of our calculations:
 
