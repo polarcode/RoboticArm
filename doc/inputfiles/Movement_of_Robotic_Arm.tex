@@ -152,6 +152,23 @@ a & b & c\\ d & e & f\\ g & h & i
 
 These are 9 unknown variables and 9 linear equations which can be solved easily with matlab/octave.
 
+\subsection{Calculating Euler Angles}
+If we want to scale the the movement of the robotic arm to animate it. we must know the angles to rotate. This angles are called euler angles. Euer angles are always three angles with which we can rotate an object to face any direction we want. The angles depend on the sequence you rotate them. We decide the sequence to be ZYZ.\\
+\begin{minipage}{0.5\textwidth}
+\includegraphics[width=\textwidth]{imgs/AngleCalc/eulerangles.png}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+Calculating first two angles from z vector of the coordinate system of the robot:\\
+\begin{align*}
+\varphi &= arctan(\frac{x}{y})\\
+\theta &= arctan(\frac{\sqrt{x^2+y^2}}{z}
+\end{align*}
+Calculating the last angle:\\
+$\rightarrow$ First execute the two rotation, then calculate the last angle from the x-axis or y-axis of the coordinate system. We chose the y-axis:\\
+\begin{align*}
+\Psi &= arctan(\frac{x}{y})
+\end{align*}
+\end{minipage}
 
 \subsection{Gimbal-Lock}
 Gimbal-Lock is a problem which occurs when rotating an object with euler angles. It occurs because you always have to decide for an order how to rotate the object. For example first rotate around x-axis, then y-axis then z-axis(xyz-order). In this case Gimbal-Lock would occur when the y-axis is 90° to the x-axis and z-axis. It's always the middle axis which is the problem, because it can move the other both in one plane if the first axis isn't moved. The following picture should show it:\\
