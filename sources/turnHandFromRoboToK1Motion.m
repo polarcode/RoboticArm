@@ -8,10 +8,9 @@ function [robo] = turnHandFromRoboToK1Motion (robo, K1)
     V_thumb = robo.V_thumb;
     V_garbage = robo.V_garbage;
     
-    [z1,y,z2] = getEulerZYZ(robo.handK)
-    [z12,y2,z22] = getEulerZYZ(K1)
+    [z1,y,z2] = getEulerZYZ(robo.handK);
+    [z12,y2,z22] = getEulerZYZ(K1);
     
-    %rot2 = rz(z12)*ry(y2)*rz(-z2+z22)*ry(-y)*rz(-z1);
     T1 = tl(robo.handK(1,1), robo.handK(2,1), robo.handK(3,1));
     T2 = tl(-robo.handK(1,1), -robo.handK(2,1), -robo.handK(3,1));
     
