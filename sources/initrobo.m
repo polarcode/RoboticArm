@@ -46,33 +46,35 @@ robo = struct('V_pillar', V_pillar,...
                'upperArm_len', 500,...
                'foreArm_len', 500,...
                'hand_len', 160);
+           
+robo_orig = robo;
+face_orig = face;
 
-robo.graphics = initView(robo, face);
-%pause(5)
-%robo = turnHandAxial(robo, 60);
-%robo = turnHandHorizontal(robo, -70);
-%robo = turnHandVertical(robo, 30);
-%updateView(robo);
-%pause(3)
+while 1
+    clf;
+    robo = robo_orig; face = face_orig;
 
-robo = moveRobo(robo, [600, 315, 85]);
-robo = grab(robo);
-robo = moveRobo(robo, [-500, -500, 600]);
-robo = moveRobo(robo, [-500, 500, 700]);
-robo = moveRobo(robo, [500, -500, 500]);
+    robo.graphics = initView(robo, face);
 
-robo = turnHandFromRoboToK1Motion(robo, robo.elbowK);
-%updateView(robo);
-for i = 1:20
-    robo = turnHandAxial(robo, (90 /20));
+    robo = moveRobo(robo, [600, 315, 85]);
+    robo = grab(robo);
+    robo = moveRobo(robo, [-500, -500, 600]);
+    robo = moveRobo(robo, [-500, 500, 700]);
+    robo = moveRobo(robo, [500, -500, 500]);
+
+    robo = turnHandFromRoboToK1Motion(robo, robo.elbowK);
+    %updateView(robo);
+    for i = 1:20
+        robo = turnHandAxial(robo, (90 /20));
+        updateView(robo);
+        pause(0.01)
+    end
+
+    robo = moveRobo(robo, [600, -600, 30]);
+    robo = letGo(robo);
+    robo = moveRobo(robo, [1000, 0, 570 - robo.hand_len]);
+    robo = turnHandFromRoboToK1Motion(robo, robo.elbowK);
     updateView(robo);
-    pause(0.01)
+
 end
-
-robo = moveRobo(robo, [500, -500, 30]);
-robo = letGo(robo);
-robo = moveRobo(robo, [1000, 0, 300]);
-robo = turnHandFromRoboToK1Motion(robo, robo.elbowK);
-updateView(robo);
-
 
